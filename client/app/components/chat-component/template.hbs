@@ -1,0 +1,26 @@
+{{yield}} 
+{{#each socket.messages as |item|}} 
+    {{#if item.msg}}
+        <message>{{item.msg}}</message>
+    {{/if}} 
+   
+    {{#if item.join}}
+        <join>{{item.join}}</join>
+    {{/if}}
+    
+     {{#if item.me}}
+        <message class="me">{{item.me}}</message>
+    {{/if}}
+     
+{{/each}}
+<div class="message-input">
+   {{#if socket.writingBool}}
+       <div class="writing"></div>
+   {{/if}}
+   
+    <form>
+        {{input type="text" class="name" value=message }}
+        <span class="help">Tyck enter för att skicka medelandet</span>
+        <input type="submit" class="submit-name" value="Sicka" style="display: none" {{ action 'sendMessage' }}>
+    </form>
+</div>

@@ -1,0 +1,1 @@
+/Applications/MAMP/htdocs/digilar-chat/digilar-client/tmp/config_replace-output_path-NXaDuSld.tmp/vendor-suffix.js
