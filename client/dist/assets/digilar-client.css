@@ -82,61 +82,14 @@ join {
 }
 
 
-/*
-.chat-window {
-  background-color: #ECF0F1;
-  min-height: 400px;
-  width: 100%;
-  max-height: 800px;
-  padding: 10px;
+notify {
+    background: #E6E6E6;
+    padding: 10px;
+    position: fixed;
+    bottom: 10px;
+    right: 0;
 }
 
-.chat-window .message {
-  float: left;
+notify.success {
+    border-bottom: 4px solid green;
 }
-
-.chat-window .message .name {
-  font-weight: bold;
-  background-color: #EB9532;
-  color: white;
-  padding: 6px;
-  float: left;
-}
-
-.chat-window .message .text {
-  font-weight: normal;
-  display: block;
-  float: left;
-  padding: 6px;
-}
-
-.chat-send {
-  padding-top: 10px;
-  width: 100%
-}
-
-.chat-send input[type='text'].name {
-  height: 40px;
-  font-size: 20px;
-  text-align: center;
-  outline: none;
-  width: 10%;
-}
-
-.chat-send input[type='text'].message {
-  height: 40px;
-  font-size: 20px;
-  text-align: center;
-  width: 82%;
-  outline: none;
-}
-
-.chat-send input[type='button'] {
-  border: 1px solid #ECF0F1;
-  background: #ECF0F1;
-  height: 46px;
-  font-size: 20px;
-  color: darkslategray;
-  float: right;
-}
-*/

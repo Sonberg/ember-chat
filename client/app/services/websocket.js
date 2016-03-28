@@ -12,9 +12,9 @@ export default Ember.Object.extend({
             transports: ['websocket', 'polling', 'flashsocket']
         });
 
-
+        
         /*
-            New message
+            CHAT | New message
         */
         socket.on('message', function (data) {
             data = JSON.parse(data);
@@ -24,7 +24,7 @@ export default Ember.Object.extend({
         }.bind(this));
         
         /*
-            User has joined the chat
+            CHAT | User has joined the chat
         */
         socket.on('join', function (data) {
             data = JSON.parse(data);
@@ -34,7 +34,7 @@ export default Ember.Object.extend({
         }.bind(this));
 
         /*
-            User is writing
+            CHAT | User is writing
         */
         socket.on('writing', function (data) {
             if (!this.get('writingBool')) {
@@ -50,7 +50,6 @@ export default Ember.Object.extend({
         }.bind(this));
 
         socket.on('connection', function (data) {
-            console.log(data);
         })
 
     }.on('init'),

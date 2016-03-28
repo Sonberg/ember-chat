@@ -31,23 +31,24 @@ console.log('Started server on http://localhost:' + port + '/');
 // User connects to server
 socket.sockets.on('connection', function (client) {
     var connected = true;
-    
-    console.log('User has joing the chat');
+    console.log(client.id);
+
     client.broadcast.emit('join', JSON.stringify('A new user joined the chat'));
 
-
     client.on('message', function (data) {
-        console.log(data);
         client.broadcast.emit('message', data);
     });
-    
+
     client.on('writing', function (data) {
         client.broadcast.emit('writing', null);
     });
 
-    // User Disconnects
     client.on('disconnect', function () {
         connected = false;
         client.broadcast.emit('join', JSON.stringify('A user left the chat'));
+    });
+
+    client.on('reconnect', function () {
+        console.log('my connection has been restored!');
     });
 });

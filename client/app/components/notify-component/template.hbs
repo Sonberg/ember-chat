@@ -1,0 +1,3 @@
+{{#each model as |item|}} 
+<notify class="{{item.type}}" {{action 'remove' item on="mouseUp" }}> {{item.message}} </notify>
+{{/each}}

@@ -1,0 +1,1 @@
+/Applications/MAMP/htdocs/ember-chat/client/tmp/broccoli_merge_trees-input_base_path-yyDgCbbh.tmp/12/initializers/export-application-global.js

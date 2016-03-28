@@ -1,0 +1,1 @@
+/Applications/MAMP/htdocs/ember-chat/client/node_modules/ember-data/addon/store.js

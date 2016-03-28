@@ -1,0 +1,1 @@
+/Applications/MAMP/htdocs/ember-chat/client/tmp/funnel-input_base_path-fraiIsmN.tmp/0/initializer-factory.js
