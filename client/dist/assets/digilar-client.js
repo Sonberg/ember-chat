@@ -32,10 +32,11 @@ define('digilar-client/components/app-version', ['exports', 'ember-cli-app-versi
     name: name
   });
 });
-define('digilar-client/components/chat-component/component', ['exports', 'ember'], function (exports, _ember) {
-    exports['default'] = _ember['default'].Component.extend({
+define("digilar-client/components/chat-component/component", ["exports", "ember"], function (exports, _ember) {
+    exports["default"] = _ember["default"].Component.extend({
         isServiceFactory: true,
-        socket: _ember['default'].inject.service("websocket"),
+        socket: _ember["default"].inject.service("websocket"),
+        notify: _ember["default"].inject.service("notify"),
         keyDown: function keyDown(e) {
             this.get('socket').writing(e);
         },
@@ -44,23 +45,10 @@ define('digilar-client/components/chat-component/component', ['exports', 'ember'
                 var message = this.get("message");
                 this.set('message', "");
                 this.get('socket').sendMessage(message);
+                this.get('notify').success('Message sent');
             }
         }
     });
-
-    /*
-    
-    dummy: Ember.inject.service(),
-        actions: {
-            sendMessage: function () {
-                var message = this.get("message");
-                this.get("websocket").sendMessage(JSON.stringify(message));
-                this.set("message", null);
-            
-            }
-        }
-    
-    */
 });
 define("digilar-client/components/chat-component/template", ["exports"], function (exports) {
   exports["default"] = Ember.HTMLBars.template((function () {
@@ -376,44 +364,13 @@ define("digilar-client/components/chat-component/template", ["exports"], functio
     };
   })());
 });
-define("digilar-client/components/notify-component/component", ["exports", "ember"], function (exports, _ember) {
-    exports["default"] = _ember["default"].Component.extend({
-
-        model: [{
-            type: "success",
-            message: "trying stuff"
-        }],
-
-        error: function error(msg) {
-            this.get("model").pushObject({
-                type: "error",
-                message: JSON.stringify(msg)
-            });
-        },
-        success: function success(msg) {
-            this.get("model").pushObject({
-                type: "success",
-                message: JSON.stringify(msg)
-            });
-        },
-        log: function log(msg) {
-            this.get("model").pushObject({
-                type: "log",
-                message: JSON.stringify(msg)
-            });
-        },
-
-        reset: function reset() {
-            this.set("model", {
-                type: "",
-                message: ""
-            });
-        },
-
+define('digilar-client/components/notify-component/component', ['exports', 'ember'], function (exports, _ember) {
+    exports['default'] = _ember['default'].Component.extend({
+        isServiceFactory: true,
+        notify: _ember['default'].inject.service("notify"),
         actions: {
             remove: function remove(item) {
-                console.log(item);
-                this.get("model").removeObject(item);
+                this.get('notify').remove(item);
             }
 
         }
@@ -511,7 +468,7 @@ define("digilar-client/components/notify-component/template", ["exports"], funct
         dom.insertBoundary(fragment, null);
         return morphs;
       },
-      statements: [["block", "each", [["get", "model", ["loc", [null, [1, 8], [1, 13]]]]], [], 0, null, ["loc", [null, [1, 0], [3, 9]]]]],
+      statements: [["block", "each", [["get", "notify.model", ["loc", [null, [1, 8], [1, 20]]]]], [], 0, null, ["loc", [null, [1, 0], [3, 9]]]]],
       locals: [],
       templates: [child0]
     };
@@ -707,6 +664,61 @@ define('digilar-client/services/ajax', ['exports', 'ember-ajax/services/ajax'], 
     }
   });
 });
+define("digilar-client/services/notify", ["exports", "ember"], function (exports, _ember) {
+    exports["default"] = _ember["default"].Service.extend({
+        isServiceFactory: true,
+        model: [{
+            type: "success",
+            message: "trying stuff"
+        }],
+
+        error: function error(msg) {
+            var item = {
+                type: "error",
+                message: JSON.stringify(msg)
+            };
+
+            this.get("model").pushObject(item);
+            this.timeout(item);
+        },
+        success: function success(msg) {
+            var item = {
+                type: "success",
+                message: JSON.stringify(msg)
+            };
+            this.get("model").pushObject(item);
+            this.timeout(item);
+        },
+        log: function log(msg) {
+            var item = {
+                type: "log",
+                message: JSON.stringify(msg)
+            };
+
+            this.get("model").pushObject(item);
+            this.timeout(item);
+        },
+
+        reset: function reset() {
+            this.set("model", {
+                type: "",
+                message: ""
+            });
+        },
+
+        remove: function remove(item) {
+            this.get("model").removeObject(item);
+        },
+
+        timeout: function timeout(item) {
+            var self = this;
+            var timer = setInterval(function () {
+                self.get("model").removeObject(item);
+                clearInterval(timer);
+            }, 5000);
+        }
+    });
+});
 define('digilar-client/services/websocket', ['exports', 'ember'], function (exports, _ember) {
     exports['default'] = _ember['default'].Object.extend({
         isServiceFactory: true,
@@ -743,7 +755,7 @@ define('digilar-client/services/websocket', ['exports', 'ember'], function (expo
             /*
                 CHAT | User is writing
             */
-            socket.on('writing', (function (data) {
+            socket.on('writing', (function () {
                 if (!this.get('writingBool')) {
                     this.set('writingBool', true);
                 }
@@ -755,7 +767,7 @@ define('digilar-client/services/websocket', ['exports', 'ember'], function (expo
                 }, 1500);
             }).bind(this));
 
-            socket.on('connection', function (data) {});
+            socket.on('connection', function () {});
         }).on('init'),
 
         sendMessage: function sendMessage(message) {

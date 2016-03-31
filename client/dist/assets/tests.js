@@ -883,13 +883,22 @@ define('digilar-client/tests/router.jshint', ['exports'], function (exports) {
     assert.ok(true, 'router.js should pass jshint.');
   });
 });
+define('digilar-client/tests/services/notify.jshint', ['exports'], function (exports) {
+  'use strict';
+
+  QUnit.module('JSHint - services/notify.js');
+  QUnit.test('should pass jshint', function (assert) {
+    assert.expect(1);
+    assert.ok(true, 'services/notify.js should pass jshint.');
+  });
+});
 define('digilar-client/tests/services/websocket.jshint', ['exports'], function (exports) {
   'use strict';
 
   QUnit.module('JSHint - services/websocket.js');
   QUnit.test('should pass jshint', function (assert) {
     assert.expect(1);
-    assert.ok(false, 'services/websocket.js should pass jshint.\nservices/websocket.js: line 39, col 40, \'data\' is defined but never used.\nservices/websocket.js: line 52, col 43, \'data\' is defined but never used.\nservices/websocket.js: line 53, col 11, Missing semicolon.\nservices/websocket.js: line 11, col 36, \'io\' is not defined.\n\n4 errors');
+    assert.ok(false, 'services/websocket.js should pass jshint.\nservices/websocket.js: line 11, col 36, \'io\' is not defined.\n\n1 error');
   });
 });
 define('digilar-client/tests/test-helper', ['exports', 'digilar-client/tests/helpers/resolver', 'ember-qunit'], function (exports, _digilarClientTestsHelpersResolver, _emberQunit) {
@@ -1022,9 +1031,9 @@ define('digilar-client/tests/unit/routes/chat-test.jshint', ['exports'], functio
     assert.ok(true, 'unit/routes/chat-test.js should pass jshint.');
   });
 });
-define('digilar-client/tests/unit/services/dummy-service-test', ['exports', 'ember-qunit'], function (exports, _emberQunit) {
+define('digilar-client/tests/unit/services/notify-test', ['exports', 'ember-qunit'], function (exports, _emberQunit) {
 
-  (0, _emberQunit.moduleFor)('service:dummy-service', 'Unit | Service | dummy service', {
+  (0, _emberQunit.moduleFor)('service:notify', 'Unit | Service | notify', {
     // Specify the other units that are required for this test.
     // needs: ['service:foo']
   });
@@ -1035,13 +1044,13 @@ define('digilar-client/tests/unit/services/dummy-service-test', ['exports', 'emb
     assert.ok(service);
   });
 });
-define('digilar-client/tests/unit/services/dummy-service-test.jshint', ['exports'], function (exports) {
+define('digilar-client/tests/unit/services/notify-test.jshint', ['exports'], function (exports) {
   'use strict';
 
-  QUnit.module('JSHint - unit/services/dummy-service-test.js');
+  QUnit.module('JSHint - unit/services/notify-test.js');
   QUnit.test('should pass jshint', function (assert) {
     assert.expect(1);
-    assert.ok(true, 'unit/services/dummy-service-test.js should pass jshint.');
+    assert.ok(true, 'unit/services/notify-test.js should pass jshint.');
   });
 });
 define('digilar-client/tests/unit/services/socket-test', ['exports', 'ember-qunit'], function (exports, _emberQunit) {

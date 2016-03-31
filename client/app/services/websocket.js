@@ -36,7 +36,7 @@ export default Ember.Object.extend({
         /*
             CHAT | User is writing
         */
-        socket.on('writing', function (data) {
+        socket.on('writing', function () {
             if (!this.get('writingBool')) {
                 this.set('writingBool', true);
             }
@@ -49,8 +49,8 @@ export default Ember.Object.extend({
             
         }.bind(this));
 
-        socket.on('connection', function (data) {
-        })
+        socket.on('connection', function () {
+        });
 
     }.on('init'),
 
