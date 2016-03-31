@@ -2,6 +2,7 @@ import Ember from 'ember';
 
 export default Ember.Object.extend({
     isServiceFactory: true,
+    notify: Ember.inject.service("notify"),
     messages: [{
         msg: "Welcome to your chat"
     }],
@@ -18,6 +19,7 @@ export default Ember.Object.extend({
         */
         socket.on('message', function (data) {
             data = JSON.parse(data);
+            this.get('notify').log("Message recived");
             this.get('messages').pushObject({
                 msg: data
             });

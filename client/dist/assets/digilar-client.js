@@ -719,9 +719,10 @@ define("digilar-client/services/notify", ["exports", "ember"], function (exports
         }
     });
 });
-define('digilar-client/services/websocket', ['exports', 'ember'], function (exports, _ember) {
-    exports['default'] = _ember['default'].Object.extend({
+define("digilar-client/services/websocket", ["exports", "ember"], function (exports, _ember) {
+    exports["default"] = _ember["default"].Object.extend({
         isServiceFactory: true,
+        notify: _ember["default"].inject.service("notify"),
         messages: [{
             msg: "Welcome to your chat"
         }],
@@ -737,6 +738,7 @@ define('digilar-client/services/websocket', ['exports', 'ember'], function (expo
             */
             socket.on('message', (function (data) {
                 data = JSON.parse(data);
+                this.get('notify').log("Message recived");
                 this.get('messages').pushObject({
                     msg: data
                 });

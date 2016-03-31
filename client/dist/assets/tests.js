@@ -898,7 +898,7 @@ define('digilar-client/tests/services/websocket.jshint', ['exports'], function (
   QUnit.module('JSHint - services/websocket.js');
   QUnit.test('should pass jshint', function (assert) {
     assert.expect(1);
-    assert.ok(false, 'services/websocket.js should pass jshint.\nservices/websocket.js: line 11, col 36, \'io\' is not defined.\n\n1 error');
+    assert.ok(false, 'services/websocket.js should pass jshint.\nservices/websocket.js: line 12, col 36, \'io\' is not defined.\n\n1 error');
   });
 });
 define('digilar-client/tests/test-helper', ['exports', 'digilar-client/tests/helpers/resolver', 'ember-qunit'], function (exports, _digilarClientTestsHelpersResolver, _emberQunit) {
